@@ -1,14 +1,11 @@
 import * as React from 'react';
+import Try from './Try';
 
-interface AppProps {
-
-}
-
-class App extends React.Component<AppProps, {}> {
+class App extends React.Component<{}, {}> {
 
   render() {
     return (
-      <div>TODO</div>
+      <Try/>
     );
   }
 }
