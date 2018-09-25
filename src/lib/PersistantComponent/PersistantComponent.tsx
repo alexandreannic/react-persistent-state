@@ -15,7 +15,6 @@ export abstract class PersistantComponent<P = {}, S = {}, SS = any> extends Reac
     super(props);
     name = name || Object.getPrototypeOf(this).constructor.name;
     this.localStorage = new LocalStorageEntity<S>('pc_' + name);
-
   }
 
   componentWillMount() {
@@ -40,8 +39,10 @@ export abstract class PersistantComponent<P = {}, S = {}, SS = any> extends Reac
   }
 
   private save() {
-    throttle(() => {
+    // TODO Fix this insane bug: throttle is undefiend
+    // console.log(throttle);
+    // throttle(() => {
       this.localStorage.save(this.state);
-    }, 1000)();
+    // }, 1000)();
   }
 }
