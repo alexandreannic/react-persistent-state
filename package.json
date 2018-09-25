@@ -1,0 +1,56 @@
+{
+  "name": "react-peristant-component",
+  "version": "0.0.1",
+  "description": "Abstract class to persist state in localstorage",
+  "main": "compile/index.js",
+  "peerDependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "webpack-dev-server --config conf/webpack.start.js --hot --port 3333",
+    "build": "rimraf dist && webpack --config conf/webpack.build.js --progress --profile --bail",
+    "compile": "webpack --config conf/webpack.compile.js"
+  },
+  "author": {
+    "name": "Alexandre Annic",
+    "email": "alexandre.annic1@gmail.com"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.1.10",
+    "@types/react": "^16.3.9",
+    "@types/react-dom": "^16.0.5",
+    "@types/react-redux": "^5.0.16",
+    "chai": "^4.1.2",
+    "chai-enzyme": "^0.8.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "eslint": "^4.19.1",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.49.3",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.9.1",
+    "html-webpack-plugin": "^2.30.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.1.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dev-utils": "^5.0.0",
+    "react-scripts-ts": "^2.16.0",
+    "react-test-renderer": "^16.4.0",
+    "source-map-loader": "^0.2.3",
+    "ts-jest": "^22.4.6",
+    "ts-loader": "3.5.0",
+    "typescript": "^2.8.1",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.11.2",
+    "webpack-merge": "^4.1.2"
+  }
+}

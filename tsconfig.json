@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "suppressImplicitAnyIndexErrors": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "lib": [
+      "es2015",
+      "es2017",
+      "dom"
+    ],
+    "target": "es5",
+    "jsx": "react"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "compile",
+    "build",
+    "./src/test/**"
+  ]
+}
