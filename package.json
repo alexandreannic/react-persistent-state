@@ -1,5 +1,5 @@
 {
-  "name": "react-peristant-component",
+  "name": "react-persistant-component",
   "version": "0.0.1",
   "description": "Abstract class to persist state in localstorage",
   "main": "compile/index.js",
