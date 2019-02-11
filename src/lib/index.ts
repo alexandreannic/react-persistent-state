@@ -1,2 +1,2 @@
-export {PersistantComponent} from './PersistantComponent/PersistantComponent'
-export {usePersistentState} from './PersistantComponent/usePersistentState'
+export {PersistentComponent} from './PersistentState/PersistentComponent'
+export {usePersistentState} from './PersistentState/usePersistentState'
