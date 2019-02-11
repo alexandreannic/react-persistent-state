@@ -1,34 +1,90 @@
-# react-persistant-component
+# react-persistent-state
 
-Abstract class to persist state in localstorage
+Tools to simply persist component state in the local storage.
 
 ### Installation
 
-```npm install --save https://github.com/alexandreannic/react-persistant-component.git```
+```
+npm install --save https://github.com/alexandreannic/react-persistant-component.git
+```
 
 ### Usage
 
-Simply make your component extend `PersistantComponent` from react-persistant-component instead of `Component` from React. 
-After refresh, the state will remain the same.
+#### From class component
 
-    import * as React from 'react';
-    import {PersistantComponent} from 'react-persistant-component';
+Simply extend `PersistentComponent` from react-persistent-state instead of `Component` from react. 
+  
+    import React from 'react'
+    import {PersistentComponent} from 'react-persistent-state'
 
-    class Component extends PersistantComponent {
-
+    export class PersistentInput extends PersistentComponent {
       state = {
-        value: 'any value',
-      };
-
-      constructor(props) {
-        // Constructor must be called to allow PersistantComponent to get the class name as a local storage key.
-        // Alternatively you can pass your own key through constructor eg: super(props, 'myLocalStorageKey') 
-        super(props);
+        value: '',
       }
-
+    
+      handleChange = event => {
+        this.setState({value: event.target.value})
+      }
+    
       render() {
         return (
-          <input value={this.state.value} onChange={(event) => this.setState({value: event.target.value})}/>
-        );
+          <div>
+            <input value={this.state.value} onChange={this.handleChange}/>
+            <button onClick={this.clearPersistentState}>Clear from local storage</button>
+          </div>
+        )
       }
+    }
+  
+#### From functional component
+
+Use `usePersistentState` instead of `useState`.
+It works the same except that it exposes another method to clear related local storage save.
+
+    import React from 'react'
+    import {usePersistentState} from 'react-persistent-state'
+    
+    export function PersistentCounterHook() {
+      const [value, setValue, unpersist] = usePersistentState(0)
+      return (
+        <div>
+          <button onClick={() => setValue((prev) => prev + 1)}>{value}</button>
+          <button onClick={unpersist}>Clear from local storage</button>
+        </div>
+      )
+    }
+
+### Limitation
+
+In case you use the same component with persistent state multiples times
+inside a component, `react-persistent-state` won't be able to generate an unique key
+to distinguish them in the local storage.
+
+In this case you must provide a key as shown below:
+
+#### Usage
+
+    function App() {
+      return (
+        <>
+          <Persistent persistentKey={1}/>
+          <Persistent persistentKey={2}/>
+        </>
+      )
+    }
+    
+#### Class component implementation
+
+    export class Persistent extends PersistentComponent {
+      constructor(props) {
+        super(props, props.persistentKey)
+      }
+      ...
+    }
+    
+#### Functional component implementation
+
+    export const Persistent = ({persistentKey}) => {
+      const [value, setValue, clearValue] = usePersistentState<string>(0, persistentKey)
+      ...
     }

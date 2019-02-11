@@ -1,10 +1,10 @@
 import * as React from 'react'
-import {PersistantComponent} from '../lib/PersistantComponent/PersistantComponent'
+import {PersistentComponent} from '../lib/PersistentState/PersistentComponent'
 
-export class PersistantInput extends PersistantComponent<any, any> {
+export class PersistentInputClass extends PersistentComponent<any, any> {
 
   state = {
-    value: '',
+    value: 'test',
   }
 
   constructor(props) {
@@ -19,7 +19,7 @@ export class PersistantInput extends PersistantComponent<any, any> {
     return (
       <div>
         <input value={this.state.value} onChange={this.handleChange}/>
-        <button onClick={this.clearPeristantState}>Clear local storage</button>
+        <button onClick={this.clearPersistentState}>Clear from local storage</button>
       </div>
     )
   }
