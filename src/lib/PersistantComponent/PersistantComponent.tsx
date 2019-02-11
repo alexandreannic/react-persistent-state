@@ -1,26 +1,22 @@
-import * as React from 'react';
-import {LocalStorageEntity} from './localstorage';
-import throttle from 'lodash/throttle';
+import * as React from 'react'
+import {LocalStorageEntity} from '../utils/localStorageApi'
+import {generateId} from '../utils/hash'
+
+// import throttle from 'lodash/throttle';
 
 export abstract class PersistantComponent<P = {}, S = {}, SS = any> extends React.Component<P, S, SS> {
 
-  private localStorage: LocalStorageEntity<S>;
+  private localStorage: LocalStorageEntity<S>
 
-  /**
-   * /!|/!|/!|
-   * Constructor must be called in inheriting class to retrieve Object.getPrototypeOf(this).constructor.name
-   * /!|/!|/!|
-   */
-  protected constructor(props: P, name?: string) {
-    super(props);
-    name = name || Object.getPrototypeOf(this).constructor.name;
-    this.localStorage = new LocalStorageEntity<S>('pc_' + name);
+  protected constructor(props: P, key?: string) {
+    super(props)
+    this.localStorage = new LocalStorageEntity<S>(generateId(key))
   }
 
   componentWillMount() {
-    const savedState = this.localStorage.load();
+    const savedState = this.localStorage.load()
     if (savedState) {
-      this.state = Object.assign(this.state, savedState);
+      this.state = Object.assign(this.state, savedState)
     }
   }
 
@@ -29,20 +25,19 @@ export abstract class PersistantComponent<P = {}, S = {}, SS = any> extends Reac
     callback?: () => void
   ): void {
     super.setState(state, () => {
-      if (callback) callback();
-      this.save();
-    });
+      if (callback) callback()
+      this.save()
+    })
   }
 
-  protected clearPeristantState() {
-    this.localStorage.clear();
+  protected clearPeristantState = () => {
+    this.localStorage.clear()
   }
 
-  private save() {
+  private save = () => {
     // TODO Fix this insane bug: throttle is undefiend
-    // console.log(throttle);
     // throttle(() => {
-      this.localStorage.save(this.state);
+    this.localStorage.save(this.state)
     // }, 1000)();
   }
 }
