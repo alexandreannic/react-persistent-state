@@ -1,15 +1,15 @@
 import {LocalStorageEntity} from '../utils/localStorageApi'
 import {generateId} from '../utils/hash'
-import {useEffect, useState} from 'react'
+import {Dispatch, SetStateAction, useEffect, useState} from 'react'
 
-export function usePersistentState<T>(value?, key?) {
-  const initLocalStorage = () => new LocalStorageEntity<T>(generateId(key))
-  const [ls] = useState(initLocalStorage)
-  const [x, setX] = useState(ls.load() || value || 0)
-  useEffect(() => ls.save(x), [x])
+export function usePersistentState<S>(initialState: S | (() => S), key?): [S, Dispatch<SetStateAction<S>>, () => void] {
+  const initLocalStorage = () => new LocalStorageEntity<S>(generateId(key))
+  const [storage] = useState(initLocalStorage)
+  const [state, setState] = useState<S>(storage.load() || initialState)
+  useEffect(() => storage.save(state), [state])
   return [
-    x,
-    setX,
-    ls.clear
+    state,
+    setState,
+    storage.clear
   ]
 }
