@@ -1,8 +1,7 @@
 import * as React from 'react'
 import {LocalStorageEntity} from '../utils/localStorageApi'
 import {generateId} from '../utils/hash'
-
-// import throttle from 'lodash/throttle';
+import throttle from 'lodash.throttle'
 
 export abstract class PersistentComponent<P = {}, S = {}, SS = any> extends React.Component<P, S, SS> {
 
@@ -34,10 +33,5 @@ export abstract class PersistentComponent<P = {}, S = {}, SS = any> extends Reac
     this.localStorage.clear()
   }
 
-  private persistState = () => {
-    // TODO Fix this insane bug: throttle is undefiend
-    // throttle(() => {
-    this.localStorage.save(this.state)
-    // }, 1000)();
-  }
+  private persistState = throttle(() => this.localStorage.save(this.state), 1000)
 }
