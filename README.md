@@ -5,7 +5,7 @@ Tools to simply persist component state in the local storage.
 ### Installation
 
 ```
-npm install --save https://github.com/alexandreannic/react-persistant-component.git
+npm install --save https://github.com/alexandreannic/react-persistent-state.git
 ```
 
 ### Usage
