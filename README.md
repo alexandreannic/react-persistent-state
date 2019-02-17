@@ -56,9 +56,9 @@ It works the same except that it exposes another method to clear related local s
 
 ### Limitation
 
-In case you use the same component with persistent state multiples times
-inside a component, `react-persistent-state` won't be able to generate an unique key
-to distinguish them from the local storage.
+In case you use a component with persistent state multiples times
+inside a same component, `react-persistent-state` won't be able to generate an unique key
+to distinguish them from in the local storage.
 
 In this case you must provide a key as shown below:
 
