@@ -1,6 +1,6 @@
 {
   "name": "react-persistent-state",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Abstract class to persist state in localstorage",
   "main": "compile/index.js",
   "peerDependencies": {
@@ -8,11 +8,7 @@
     "react-dom": "16.8.1",
     "lodash.throttle": "^4.1.1"
   },
-  "dependencies": {
-    "lodash.throttle": "^4.1.1",
-    "react": "16.8.1",
-    "react-dom": "16.8.1"
-  },
+  "dependencies": {},
   "scripts": {
     "test": "jest",
     "start": "webpack-dev-server --config conf/webpack.start.js --hot --port 3333",
@@ -24,6 +20,9 @@
     "email": "alexandre.annic1@gmail.com"
   },
   "devDependencies": {
+    "lodash.throttle": "^4.1.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "@types/enzyme": "^3.1.10",
     "@types/react": "16.8.1",
     "@types/react-dom": "^16.0.6",
