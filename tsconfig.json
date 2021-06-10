@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
+    "outDir": "./lib",
     "allowJs": false,
     "moduleResolution": "node",
-    "rootDir": "src",
     "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "esModuleInterop": true,
+    "experimentalDecorators": true,
     "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "lib": [
       "es2015",
       "es2017",
@@ -22,9 +26,10 @@
     "./src/**/*"
   ],
   "exclude": [
+    "test",
+    "doc",
     "node_modules",
     "compile",
-    "build",
-    "./src/test/**"
+    "build"
   ]
 }

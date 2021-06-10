@@ -1,5 +1,5 @@
 export function generateId(key?: string | number): string {
-  return 'pc_' + generateHash(new Error().stack) + key
+  return 'rps_' + generateHash(new Error().stack ?? '') + key
 }
 
 function generateHash(x: string): number {

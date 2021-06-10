@@ -14,6 +14,6 @@ export function usePersistentState<S>(initialState: S | (() => S), key?): [S, Di
   return [
     state,
     setState,
-    storage.clear
+    () => storage.clear()
   ]
 }
