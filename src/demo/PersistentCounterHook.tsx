@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {usePersistentState} from '../lib/PersistentState/usePersistentState'
+import {usePersistentState} from '../PersistentState/usePersistentState'
 
 export const PersistentCounterHook = ({persistentKey}) => {
   const [value, setValue, clearValue] = usePersistentState<number>(0, persistentKey)

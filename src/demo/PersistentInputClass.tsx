@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {PersistentComponent} from '../lib/PersistentState/PersistentComponent'
+import {PersistentComponent} from '../PersistentState/PersistentComponent'
 
 export class PersistentInputClass extends PersistentComponent<any, any> {
 

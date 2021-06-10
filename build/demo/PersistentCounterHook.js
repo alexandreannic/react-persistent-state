@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersistentCounterHook = void 0;
 var React = __importStar(require("react"));
-var usePersistentState_1 = require("../lib/PersistentState/usePersistentState");
+var usePersistentState_1 = require("../PersistentState/usePersistentState");
 var PersistentCounterHook = function (_a) {
     var persistentKey = _a.persistentKey;
     var _b = usePersistentState_1.usePersistentState(0, persistentKey), value = _b[0], setValue = _b[1], clearValue = _b[2];

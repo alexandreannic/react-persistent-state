@@ -33,28 +33,41 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PersistentInputClass = void 0;
+exports.PersistentComponent = void 0;
 var React = __importStar(require("react"));
-var PersistentComponent_1 = require("../PersistentState/PersistentComponent");
-var PersistentInputClass = /** @class */ (function (_super) {
-    __extends(PersistentInputClass, _super);
-    function PersistentInputClass(props) {
-        var _this = _super.call(this, props, props.persitentKey) || this;
-        _this.state = {
-            value: 'test',
+var localStorageApi_1 = require("../utils/localStorageApi");
+var hash_1 = require("../utils/hash");
+var lodash_throttle_1 = __importDefault(require("lodash.throttle"));
+var PersistentComponent = /** @class */ (function (_super) {
+    __extends(PersistentComponent, _super);
+    function PersistentComponent(props, key) {
+        var _this = _super.call(this, props) || this;
+        _this.clearPersistentState = function () {
+            _this.localStorage.clear();
         };
-        _this.handleChange = function (event) {
-            _this.setState({ value: event.target.value });
-        };
+        _this.persistState = lodash_throttle_1.default(function () { return _this.localStorage.save(_this.state); }, 1000);
+        _this.localStorage = new localStorageApi_1.LocalStorageEntity(hash_1.generateId(key));
         return _this;
     }
-    PersistentInputClass.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement("input", { value: this.state.value, onChange: this.handleChange }),
-            React.createElement("button", { onClick: this.clearPersistentState }, "Clear from local storage")));
+    PersistentComponent.prototype.componentWillMount = function () {
+        var savedState = this.localStorage.load();
+        if (savedState) {
+            this.state = Object.assign(this.state, savedState);
+        }
     };
-    return PersistentInputClass;
-}(PersistentComponent_1.PersistentComponent));
-exports.PersistentInputClass = PersistentInputClass;
-//# sourceMappingURL=PersistentInputClass.js.map
+    PersistentComponent.prototype.setState = function (state, callback) {
+        var _this = this;
+        _super.prototype.setState.call(this, state, function () {
+            if (callback)
+                callback();
+            _this.persistState();
+        });
+    };
+    return PersistentComponent;
+}(React.Component));
+exports.PersistentComponent = PersistentComponent;
+//# sourceMappingURL=PersistentComponent.js.map
