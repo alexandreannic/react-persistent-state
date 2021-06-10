@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateId = void 0;
 function generateId(key) {
     var _a;
-    return 'rps_' + generateHash((_a = new Error().stack) !== null && _a !== void 0 ? _a : '') + key;
+    return 'react-persistant-state-' + generateHash((_a = new Error().stack) !== null && _a !== void 0 ? _a : '') + key;
 }
 exports.generateId = generateId;
 function generateHash(x) {

@@ -1,5 +1,5 @@
 export function generateId(key?: string | number): string {
-  return 'rps_' + generateHash(new Error().stack ?? '') + key
+  return 'react-persistant-state-' + generateHash(new Error().stack ?? '') + key
 }
 
 function generateHash(x: string): number {

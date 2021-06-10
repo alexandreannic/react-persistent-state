@@ -11,6 +11,7 @@ var lodash_throttle_1 = __importDefault(require("lodash.throttle"));
 function usePersistentState(initialState, key) {
     var initLocalStorage = function () { return new localStorageApi_1.LocalStorageEntity(hash_1.generateId(key)); };
     var storage = react_1.useState(initLocalStorage)[0];
+    console.log('storage.load()', storage.load());
     var _a = react_1.useState(storage.load() || initialState), state = _a[0], setState = _a[1];
     var throttled = react_1.useRef(lodash_throttle_1.default(storage.save, 1000));
     react_1.useEffect(function () { return throttled.current(state); }, [state]);
