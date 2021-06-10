@@ -2,7 +2,7 @@
   "name": "react-persistent-state",
   "version": "1.0.0",
   "description": "Abstract class to persist state in localstorage",
-  "main": "lib/index.js",
+  "main": "build/index.js",
   "dependencies": {},
   "scripts": {
     "test": "jest",
