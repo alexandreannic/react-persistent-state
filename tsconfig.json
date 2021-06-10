@@ -28,8 +28,6 @@
   "exclude": [
     "test",
     "doc",
-    "node_modules",
-    "compile",
     "build"
   ]
 }
