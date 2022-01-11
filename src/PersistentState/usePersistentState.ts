@@ -8,7 +8,7 @@ export function usePersistentState<S>(initialState: S | (() => S), key?: string)
   const [state, setState] = useState<S>(initialState)
 
   const throttled = useRef(throttle(localStorage.save, 1000))
-  useEffect(() => setState(localStorage.load()), [])
+  useEffect(() => setState(localStorage.load() ?? initialState), [])
   useEffect(() => throttled.current(state), [state])
 
   return [
