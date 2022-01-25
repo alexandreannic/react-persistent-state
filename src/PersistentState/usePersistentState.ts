@@ -7,13 +7,19 @@ export function usePersistentState<S>(initialState: S | (() => S), key?: string)
   const localStorage = useMemo(() => new LocalStorageEntity<S>(generateId(key)), [])
   const [state, setState] = useState<S>(initialState)
 
+  useEffect(() => {
+    const storedState = localStorage.load()
+    if (storedState) setState(storedState)
+  }, [])
   const throttled = useRef(throttle(localStorage.save, 1000))
-  useEffect(() => setState(localStorage.load() ?? initialState), [])
   useEffect(() => throttled.current(state), [state])
 
   return [
     state,
     setState,
-    () => localStorage.clear()
+    () => {
+      localStorage.clear()
+      setState(initialState)
+    }
   ]
 }
