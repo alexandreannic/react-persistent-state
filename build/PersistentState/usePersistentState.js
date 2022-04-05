@@ -17,7 +17,10 @@ function usePersistentState(initialState, key) {
     return [
         state,
         setState,
-        function () { return localStorage.clear(); }
+        function () {
+            localStorage.clear();
+            setState(initialState);
+        }
     ];
 }
 exports.usePersistentState = usePersistentState;
