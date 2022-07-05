@@ -5,9 +5,11 @@ Tools to simply persist component state in the local storage.
 ### Installation
 
 ```
-npm install --save react-persistant-state
+npm install --save react-persistent-state
 ```
+
 or
+
 ```
 npm install --save https://github.com/alexandreannic/react-persistent-state.git
 ```
@@ -16,8 +18,8 @@ npm install --save https://github.com/alexandreannic/react-persistent-state.git
 
 #### From class component
 
-Simply extend `PersistentComponent` from react-persistent-state instead of `Component` from react. 
-  
+Simply extend `PersistentComponent` from react-persistent-state instead of `Component` from react.
+
     import React from 'react'
     import {PersistentComponent} from 'react-persistent-state'
 
@@ -25,11 +27,11 @@ Simply extend `PersistentComponent` from react-persistent-state instead of `Comp
       state = {
         value: '',
       }
-    
+
       handleChange = event => {
         this.setState({value: event.target.value})
       }
-    
+
       render() {
         return (
           <div>
@@ -39,7 +41,7 @@ Simply extend `PersistentComponent` from react-persistent-state instead of `Comp
         )
       }
     }
-  
+
 #### From functional component
 
 Use `usePersistentState` instead of `useState`.
@@ -47,7 +49,7 @@ It works the same except that it exposes another method to clear related local s
 
     import React from 'react'
     import {usePersistentState} from 'react-persistent-state'
-    
+
     export function PersistentCounterHook() {
       const [value, setValue, unpersist] = usePersistentState(0)
       return (
@@ -75,7 +77,7 @@ In this case you must provide an unique `key` as shown below:
         </>
       )
     }
-    
+
 #### Class component implementation
 
     export class Persistent extends PersistentComponent {
@@ -84,7 +86,7 @@ In this case you must provide an unique `key` as shown below:
       }
       ...
     }
-    
+
 #### Functional component implementation
 
     export const Persistent = ({persistentKey}) => {
