@@ -1,27 +1,34 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usePersistentState = void 0;
-var localStorageApi_1 = require("../utils/localStorageApi");
 var hash_1 = require("../utils/hash");
 var react_1 = require("react");
-var lodash_throttle_1 = __importDefault(require("lodash.throttle"));
-function usePersistentState(initialState, key) {
-    var _a;
-    var localStorage = react_1.useMemo(function () { return new localStorageApi_1.LocalStorageEntity(hash_1.generateId(key)); }, []);
-    var _b = react_1.useState((_a = localStorage.load()) !== null && _a !== void 0 ? _a : initialState), state = _b[0], setState = _b[1];
-    var throttled = react_1.useRef(lodash_throttle_1.default(localStorage.save, 1000));
-    react_1.useEffect(function () { return throttled.current(state); }, [state]);
-    return [
-        state,
-        setState,
-        function () {
-            localStorage.clear();
-            setState(initialState);
+var usePersistentState = function (initialState, key) {
+    if (key === void 0) { key = 'react-persistent-state' + hash_1.generateId(); }
+    var isLocalStorageAvailable = typeof window !== 'undefined' && window.localStorage;
+    var getInitialValue = function () {
+        if (!isLocalStorageAvailable)
+            return initialState;
+        var storedValue = localStorage.getItem(key);
+        if (storedValue) {
+            try {
+                return JSON.parse(storedValue);
+            }
+            catch (error) {
+                console.error("Error parsing localStorage key \"" + key + "\":", error);
+            }
         }
-    ];
-}
+        return initialState;
+    };
+    var _a = react_1.useState(getInitialValue()), state = _a[0], setState = _a[1];
+    react_1.useEffect(function () {
+        localStorage.setItem(key, JSON.stringify(state));
+    }, [key, state]);
+    var clear = react_1.useCallback(function () {
+        localStorage.clear();
+        setState(initialState);
+    }, [initialState]);
+    return [state, setState, clear];
+};
 exports.usePersistentState = usePersistentState;
 //# sourceMappingURL=usePersistentState.js.map
