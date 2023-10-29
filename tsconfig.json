@@ -3,7 +3,6 @@
     "outDir": "./build",
     "allowJs": false,
     "moduleResolution": "node",
-    "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "noImplicitAny": false,
     "skipLibCheck": true,

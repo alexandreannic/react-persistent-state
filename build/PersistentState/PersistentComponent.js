@@ -16,7 +16,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -49,8 +53,8 @@ var PersistentComponent = /** @class */ (function (_super) {
         _this.clearPersistentState = function () {
             _this.localStorage.clear();
         };
-        _this.persistState = lodash_throttle_1.default(function () { return _this.localStorage.save(_this.state); }, 1000);
-        _this.localStorage = new localStorageApi_1.LocalStorageEntity(hash_1.generateId(key));
+        _this.persistState = (0, lodash_throttle_1.default)(function () { return _this.localStorage.save(_this.state); }, 1000);
+        _this.localStorage = new localStorageApi_1.LocalStorageEntity((0, hash_1.generateId)(key));
         return _this;
     }
     PersistentComponent.prototype.componentWillMount = function () {
