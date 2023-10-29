@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from 'react';
 import { PersistentComponent } from '../PersistentState/PersistentComponent';
 export declare class PersistentInputClass extends PersistentComponent<any, any> {
     state: {
@@ -6,5 +6,5 @@ export declare class PersistentInputClass extends PersistentComponent<any, any> 
     };
     constructor(props: any);
     handleChange: (event: any) => void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }

@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -24,7 +28,7 @@ var react_1 = require("react");
 var PersistentCounterHook_1 = require("./PersistentCounterHook");
 var PersistentInputClass_1 = require("./PersistentInputClass");
 var App = function () {
-    var _a = react_1.useState(true), s = _a[0], ss = _a[1];
+    var _a = (0, react_1.useState)(true), s = _a[0], ss = _a[1];
     return (React.createElement("div", { style: {
             maxWidth: 800,
             margin: '20px auto',

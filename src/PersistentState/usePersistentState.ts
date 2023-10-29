@@ -1,20 +1,39 @@
-import {LocalStorageEntity} from '../utils/localStorageApi'
 import {generateId} from '../utils/hash'
-import {Dispatch, SetStateAction, useEffect, useMemo, useRef, useState} from 'react'
-import throttle from 'lodash.throttle'
+import {Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react'
 
-export function usePersistentState<S>(initialState: S | (() => S), key?: string): [S, Dispatch<SetStateAction<S>>, () => void] {
-  const localStorage = useMemo(() => new LocalStorageEntity<S>(generateId(key)), [])
-  const [state, setState] = useState<S>(localStorage.load() ?? initialState)
-  const throttled = useRef(throttle(localStorage.save, 1000))
-  useEffect(() => throttled.current(state), [state])
+export const usePersistentState = <S>(
+  initialState: S | (() => S), {
+    storageKey = 'react-persistent-state' + generateId(),
+    transformFromStorage = _ => _,
+  }: {
+    transformFromStorage?: (_: S) => S
+    storageKey: string
+  }): [S, Dispatch<SetStateAction<S>>, () => void] => {
+  const isLocalStorageAvailable = typeof window !== 'undefined' && window.localStorage
 
-  return [
-    state,
-    setState,
-    () => {
-      localStorage.clear()
-      setState(initialState)
+  const getInitialValue = (): S | (() => S) => {
+    if (!isLocalStorageAvailable) return initialState
+    const storedValue = localStorage.getItem(storageKey)
+    if (storedValue) {
+      try {
+        return transformFromStorage(JSON.parse(storedValue))
+      } catch (error) {
+        console.error(`Error parsing localStorage key "${storageKey}":`, error)
+      }
     }
-  ]
+    return initialState
+  }
+
+  const [state, setState] = useState<S>(getInitialValue())
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(state))
+  }, [storageKey, state])
+
+  const clear = useCallback(() => {
+    localStorage.clear()
+    setState(initialState)
+  }, [initialState])
+
+  return [state, setState, clear]
 }
