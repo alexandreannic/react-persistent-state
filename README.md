@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> **DEPRECATED and no longer maintained**. See [@axanc/react-hooks](https://github.com/alexandreannic/react-hooks-lib) instead.
+
+
 # react-persistent-state
 
 Tools to simply persist component state in the local storage.
